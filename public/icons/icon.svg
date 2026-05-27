@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Atendimentos">
+  <rect width="512" height="512" rx="96" fill="#125c4d"/>
+  <circle cx="166" cy="168" r="54" fill="#f6d365"/>
+  <circle cx="344" cy="168" r="54" fill="#f28f3b"/>
+  <path fill="#f4f7f2" d="M88 350c12-62 52-100 108-100s96 38 108 100v30H88z"/>
+  <path fill="#dceee8" d="M218 350c10-62 50-100 106-100s96 38 108 100v30H218z"/>
+  <path fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" d="M184 404h144M256 332v144"/>
+</svg>
