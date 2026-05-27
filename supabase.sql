@@ -87,6 +87,48 @@ begin
 end $$;
 
 do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'atendimentos'
+      and column_name = 'nome'
+  ) then
+    update public.atendimentos
+    set nome = nome_atendido
+    where nome_atendido is not null
+      and (
+        nome is null
+        or trim(nome) = ''
+        or nome = 'Atendido sem nome'
+      );
+
+    execute $trigger$
+      create or replace function public.sync_atendimentos_nome_legacy()
+      returns trigger
+      language plpgsql
+      as $fn$
+      begin
+        if new.nome is null or trim(new.nome) = '' or new.nome = 'Atendido sem nome' then
+          new.nome = new.nome_atendido;
+        end if;
+
+        return new;
+      end;
+      $fn$;
+    $trigger$;
+
+    drop trigger if exists sync_atendimentos_nome_legacy_trigger on public.atendimentos;
+
+    create trigger sync_atendimentos_nome_legacy_trigger
+    before insert or update on public.atendimentos
+    for each row
+    execute function public.sync_atendimentos_nome_legacy();
+  end if;
+end $$;
+
+do $$
 declare
   data_hora_type text;
 begin
@@ -118,6 +160,44 @@ begin
 
     alter table public.atendimentos
       alter column data_hora set default now()::text;
+  end if;
+end $$;
+
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'atendimentos'
+      and column_name = 'data_hora'
+  ) then
+    update public.atendimentos
+    set data_hora = atendimento_em
+    where atendimento_em is not null
+      and data_hora is null;
+
+    execute $trigger$
+      create or replace function public.sync_atendimentos_data_hora_legacy()
+      returns trigger
+      language plpgsql
+      as $fn$
+      begin
+        if new.data_hora is null then
+          new.data_hora = new.atendimento_em;
+        end if;
+
+        return new;
+      end;
+      $fn$;
+    $trigger$;
+
+    drop trigger if exists sync_atendimentos_data_hora_legacy_trigger on public.atendimentos;
+
+    create trigger sync_atendimentos_data_hora_legacy_trigger
+    before insert or update on public.atendimentos
+    for each row
+    execute function public.sync_atendimentos_data_hora_legacy();
   end if;
 end $$;
 
