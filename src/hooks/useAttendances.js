@@ -2,7 +2,7 @@ import { liveQuery } from 'dexie';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SYNC_STATUS } from '../db/database';
 import { createAttendance, listAttendances } from '../db/attendanceRepository';
-import { syncPendingAttendances } from '../services/syncService';
+import { subscribeToRemoteAttendances, syncPendingAttendances } from '../services/syncService';
 import { useOnlineStatus } from './useOnlineStatus';
 
 const initialSyncState = {
@@ -93,6 +93,19 @@ export function useAttendances() {
     const timer = window.setTimeout(syncNow, 500);
     return () => window.clearTimeout(timer);
   }, [isOnline, syncNow]);
+
+  useEffect(() => {
+    if (!isOnline) {
+      return undefined;
+    }
+
+    const unsubscribe = subscribeToRemoteAttendances();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [isOnline]);
 
   return {
     attendances,

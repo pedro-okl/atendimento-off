@@ -49,6 +49,29 @@ export async function listAttendances() {
   return records.sort((a, b) => new Date(b.atendimentoEm) - new Date(a.atendimentoEm));
 }
 
+export async function upsertRemoteAttendances(records) {
+  if (records.length === 0) {
+    return 0;
+  }
+
+  await db.transaction('rw', db.attendances, async () => {
+    for (const record of records) {
+      const current = await db.attendances.get(record.clientId);
+
+      await db.attendances.put({
+        ...current,
+        ...record,
+        syncStatus: SYNC_STATUS.SYNCED,
+        retryCount: 0,
+        lastSyncAttempt: current?.lastSyncAttempt || null,
+        lastError: null
+      });
+    }
+  });
+
+  return records.length;
+}
+
 export async function listQueuedAttendances() {
   await repairInvalidClientIds();
 
