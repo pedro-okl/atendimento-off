@@ -1,4 +1,3 @@
-import { ClipboardList, RotateCcw } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 import { formatDateTime } from '../utils/date';
 
@@ -7,7 +6,6 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
     <section className="list-section" aria-labelledby="list-title">
       <div className="section-header">
         <div className="section-title">
-          <ClipboardList size={20} aria-hidden="true" />
           <h2 id="list-title">Registros</h2>
         </div>
 
@@ -16,11 +14,10 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
           className="secondary-button"
           onClick={onSync}
           disabled={syncRunning}
-          title="Retentar fila"
-          aria-label="Retentar fila"
+          title="Atualizar registros"
+          aria-label="Atualizar registros"
         >
-          <RotateCcw size={17} aria-hidden="true" />
-          Retentar
+          Atualizar
         </button>
       </div>
 

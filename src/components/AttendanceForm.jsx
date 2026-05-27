@@ -1,4 +1,3 @@
-import { Save, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import { toDateTimeLocalValue } from '../utils/date';
 
@@ -52,7 +51,6 @@ export function AttendanceForm({ onAdd }) {
   return (
     <section className="form-panel" aria-labelledby="form-title">
       <div className="section-title">
-        <UserRound size={20} aria-hidden="true" />
         <h2 id="form-title">Novo atendimento</h2>
       </div>
 
@@ -94,8 +92,7 @@ export function AttendanceForm({ onAdd }) {
         {saved ? <p className="form-message success-message">Atendimento salvo localmente.</p> : null}
 
         <button type="submit" className="primary-button" disabled={saving}>
-          <Save size={18} aria-hidden="true" />
-          Salvar atendimento
+          {saving ? 'Salvando...' : 'Salvar atendimento'}
         </button>
       </form>
     </section>

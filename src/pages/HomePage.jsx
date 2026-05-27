@@ -1,4 +1,3 @@
-import { Activity } from 'lucide-react';
 import { AttendanceForm } from '../components/AttendanceForm';
 import { AttendanceList } from '../components/AttendanceList';
 import { ConnectionBanner } from '../components/ConnectionBanner';
@@ -19,9 +18,7 @@ export function HomePage() {
   return (
     <main className="app-shell">
       <header className="app-header">
-        <div className="brand-mark" aria-hidden="true">
-          <Activity size={26} />
-        </div>
+        <div className="brand-mark" aria-hidden="true">AS</div>
         <div>
           <p>ONG Social</p>
           <h1>Atendimentos Offline</h1>
