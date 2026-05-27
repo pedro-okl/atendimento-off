@@ -1,3 +1,4 @@
+import { RefreshCw, ScrollText } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 import { formatDateTime } from '../utils/date';
 
@@ -6,6 +7,9 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
     <section className="list-section" aria-labelledby="list-title">
       <div className="section-header">
         <div className="section-title">
+          <span className="section-glyph" aria-hidden="true">
+            <ScrollText size={17} />
+          </span>
           <h2 id="list-title">Registros</h2>
         </div>
 
@@ -17,14 +21,15 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
           title="Atualizar registros"
           aria-label="Atualizar registros"
         >
-          Atualizar
+          <RefreshCw className={syncRunning ? 'spin-icon' : undefined} size={16} aria-hidden="true" />
+          <span>{syncRunning ? 'Sincronizando' : 'Atualizar'}</span>
         </button>
       </div>
 
-      {loading ? <p className="empty-state">Carregando registros locais.</p> : null}
+      {loading ? <p className="empty-state">Abrindo o caderno local...</p> : null}
 
       {!loading && attendances.length === 0 ? (
-        <p className="empty-state">Nenhum atendimento registrado.</p>
+        <p className="empty-state">Nenhum atendimento registrado ainda.</p>
       ) : null}
 
       <div className="attendance-list">
@@ -41,8 +46,8 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
             <p>{attendance.descricao}</p>
 
             <footer>
-              <span>ID local: {attendance.clientId.slice(0, 8)}</span>
-              <span>Tentativas: {attendance.retryCount || 0}</span>
+              <span>Ficha local {attendance.clientId.slice(0, 8)}</span>
+              <span>{attendance.retryCount || 0} tentativa(s) de envio</span>
             </footer>
 
             {attendance.lastError ? <div className="record-error">{attendance.lastError}</div> : null}
