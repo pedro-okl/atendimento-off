@@ -2,6 +2,9 @@
  * Remove caracteres especiais do CPF
  */
 export function cleanCPF(cpf) {
+  if (!cpf || typeof cpf !== 'string') {
+    return '';
+  }
   return cpf.replace(/\D/g, '');
 }
 
@@ -9,6 +12,9 @@ export function cleanCPF(cpf) {
  * Formata CPF no padrão XXX.XXX.XXX-XX
  */
 export function formatCPF(cpf) {
+  if (!cpf || typeof cpf !== 'string') {
+    return '';
+  }
   const cleaned = cleanCPF(cpf);
   if (cleaned.length !== 11) {
     return cleaned;
@@ -23,6 +29,9 @@ export function formatCPF(cpf) {
  * - Dígitos verificadores
  */
 export function isValidCPF(cpf) {
+  if (!cpf || typeof cpf !== 'string') {
+    return false;
+  }
   const cleaned = cleanCPF(cpf);
 
   // Verifica se tem 11 dígitos
