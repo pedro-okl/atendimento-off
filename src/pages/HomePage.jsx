@@ -1,4 +1,4 @@
-import { HeartHandshake, MapPinned, NotebookPen } from 'lucide-react';
+import { MapPinned, NotebookPen } from 'lucide-react';
 import { AttendanceForm } from '../components/AttendanceForm';
 import { AttendanceList } from '../components/AttendanceList';
 import { ConnectionBanner } from '../components/ConnectionBanner';
@@ -20,11 +20,7 @@ export function HomePage() {
     <main className="app-shell">
       <header className="app-header">
         <div className="brand-cluster">
-          <div className="brand-mark" aria-hidden="true">
-            <HeartHandshake size={24} strokeWidth={2.2} />
-          </div>
           <div>
-            <p className="eyebrow">ONG Social</p>
             <h1>Atendimentos Offline</h1>
           </div>
         </div>
