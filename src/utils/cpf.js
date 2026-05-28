@@ -78,3 +78,32 @@ export function isValidCPF(cpf) {
 
   return true;
 }
+
+/**
+ * Formata número de telefone/celular no padrão (XX) 9XXXX-XXXX ou (XX) XXXX-XXXX
+ */
+export function formatPhoneNumber(phone) {
+  if (!phone || typeof phone !== 'string') {
+    return '';
+  }
+
+  // Remove tudo que não é número
+  const cleaned = phone.replace(/\D/g, '');
+
+  // Se vazio, retorna vazio
+  if (cleaned.length === 0) {
+    return '';
+  }
+
+  // Formata de acordo com o comprimento
+  if (cleaned.length <= 2) {
+    return `(${cleaned}`;
+  } else if (cleaned.length <= 7) {
+    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
+  } else if (cleaned.length <= 11) {
+    return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7)}`;
+  }
+
+  // Se tiver mais de 11, limita
+  return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`;
+}

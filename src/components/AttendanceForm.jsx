@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CalendarClock, FileText, PenLine, Save, UserRound, Hash, Phone } from 'lucide-react';
 import { toDateTimeLocalValue } from '../utils/date';
-import { formatCPF, isValidCPF } from '../utils/cpf';
+import { formatCPF, isValidCPF, formatPhoneNumber } from '../utils/cpf';
 
 const tiposProblema = [
   'Saúde',
@@ -162,7 +162,16 @@ export function AttendanceForm({ onAdd }) {
           <input
             type="text"
             value={form.contato}
-            onChange={(event) => updateField('contato', event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+              // Se começar com parêntese, é telefone - formata
+              if (value.includes('(') || value.match(/^\d{2}/)) {
+                updateField('contato', formatPhoneNumber(value));
+              } else {
+                // Senão, é email - deixa como está
+                updateField('contato', value);
+              }
+            }}
             placeholder="(11) 99999-9999 ou email@example.com"
             maxLength={120}
             required
