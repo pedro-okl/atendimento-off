@@ -580,8 +580,8 @@ button:disabled {
 .attendance-form input:focus,
 .attendance-form textarea:focus,
 .attendance-form select:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(18, 92, 77, 0.14);
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(72, 107, 74, 0.14);
 }
 
 .form-message {
