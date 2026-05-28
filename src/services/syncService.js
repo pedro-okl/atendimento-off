@@ -10,13 +10,17 @@ import { SYNC_STATUS } from '../db/database';
 import { isSupabaseConfigured, supabase } from './supabaseClient';
 
 let syncInProgress = false;
-const REMOTE_COLUMNS = 'client_id,nome_atendido,descricao,atendimento_em,created_at,updated_at';
+const REMOTE_COLUMNS = 'client_id,nome_atendido,idade,tipo_problema,cpf,contato,descricao,atendimento_em,created_at,updated_at';
 const REMOTE_PAGE_SIZE = 1000;
 
 function toRemotePayload(record) {
   return {
     client_id: record.clientId,
     nome_atendido: record.nomeAtendido,
+    idade: record.idade,
+    tipo_problema: record.tipoProblema,
+    cpf: record.cpf,
+    contato: record.contato,
     descricao: record.descricao,
     atendimento_em: record.atendimentoEm,
     created_at: record.createdAt,
@@ -40,6 +44,10 @@ function toLocalRecord(row) {
   return {
     clientId: row.client_id,
     nomeAtendido: row.nome_atendido,
+    idade: row.idade,
+    tipoProblema: row.tipo_problema,
+    cpf: row.cpf,
+    contato: row.contato,
     descricao: row.descricao,
     atendimentoEm: row.atendimento_em,
     createdAt: row.created_at,

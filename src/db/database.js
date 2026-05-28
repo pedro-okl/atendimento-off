@@ -12,3 +12,7 @@ export const db = new Dexie('registro_offline_atendimentos');
 db.version(1).stores({
   attendances: 'clientId, syncStatus, atendimentoEm, updatedAt, nomeAtendido'
 });
+
+db.version(2).stores({
+  attendances: 'clientId, syncStatus, atendimentoEm, updatedAt, nomeAtendido, idade, tipoProblema, cpf'
+});

@@ -1,9 +1,27 @@
 import { Save, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import { toDateTimeLocalValue } from '../utils/date';
+import { formatCPF, isValidCPF } from '../utils/cpf';
+
+const tiposProblema = [
+  'Saúde',
+  'Financeiro',
+  'Habitação',
+  'Educação',
+  'Alimentação',
+  'Segurança',
+  'Saúde mental',
+  'Acesso a direitos',
+  'Documentação',
+  'Outro'
+];
 
 const initialForm = {
   nomeAtendido: '',
+  idade: '',
+  tipoProblema: '',
+  cpf: '',
+  contato: '',
   descricao: '',
   atendimentoEm: toDateTimeLocalValue()
 };
@@ -23,8 +41,13 @@ export function AttendanceForm({ onAdd }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!form.nomeAtendido.trim() || !form.descricao.trim()) {
-      setError('Informe nome e descricao do atendimento.');
+    if (!form.nomeAtendido.trim() || !form.idade.trim() || !form.tipoProblema || !form.cpf.trim() || !form.contato.trim() || !form.descricao.trim()) {
+      setError('Informe todos os campos obrigatórios.');
+      return;
+    }
+
+    if (!isValidCPF(form.cpf)) {
+      setError('CPF inválido.');
       return;
     }
 
@@ -32,12 +55,20 @@ export function AttendanceForm({ onAdd }) {
       setSaving(true);
       await onAdd({
         nomeAtendido: form.nomeAtendido,
+        idade: parseInt(form.idade),
+        tipoProblema: form.tipoProblema,
+        cpf: form.cpf.replace(/\D/g, ''),
+        contato: form.contato,
         descricao: form.descricao,
         atendimentoEm: new Date(form.atendimentoEm).toISOString()
       });
 
       setForm({
         nomeAtendido: '',
+        idade: '',
+        tipoProblema: '',
+        cpf: '',
+        contato: '',
         descricao: '',
         atendimentoEm: toDateTimeLocalValue()
       });
@@ -64,6 +95,58 @@ export function AttendanceForm({ onAdd }) {
             value={form.nomeAtendido}
             onChange={(event) => updateField('nomeAtendido', event.target.value)}
             autoComplete="name"
+            maxLength={120}
+            required
+          />
+        </label>
+
+        <label>
+          Idade
+          <input
+            type="number"
+            value={form.idade}
+            onChange={(event) => updateField('idade', event.target.value)}
+            min="0"
+            max="150"
+            required
+          />
+        </label>
+
+        <label>
+          Tipo de problema
+          <select
+            value={form.tipoProblema}
+            onChange={(event) => updateField('tipoProblema', event.target.value)}
+            required
+          >
+            <option value="">Selecione um tipo de problema</option>
+            {tiposProblema.map((tipo) => (
+              <option key={tipo} value={tipo}>
+                {tipo}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          CPF
+          <input
+            type="text"
+            value={form.cpf}
+            onChange={(event) => updateField('cpf', formatCPF(event.target.value))}
+            placeholder="000.000.000-00"
+            maxLength={14}
+            required
+          />
+        </label>
+
+        <label>
+          Contato (telefone ou email)
+          <input
+            type="text"
+            value={form.contato}
+            onChange={(event) => updateField('contato', event.target.value)}
+            placeholder="(11) 99999-9999 ou email@example.com"
             maxLength={120}
             required
           />

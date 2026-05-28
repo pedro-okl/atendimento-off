@@ -30,6 +30,10 @@ export async function createAttendance(input) {
   const record = {
     clientId: createClientId(),
     nomeAtendido: input.nomeAtendido.trim(),
+    idade: input.idade,
+    tipoProblema: input.tipoProblema.trim(),
+    cpf: input.cpf,
+    contato: input.contato.trim(),
     descricao: input.descricao.trim(),
     atendimentoEm,
     createdAt: now,

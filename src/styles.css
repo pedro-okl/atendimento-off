@@ -318,7 +318,8 @@ button:disabled {
 }
 
 .attendance-form input,
-.attendance-form textarea {
+.attendance-form textarea,
+.attendance-form select {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -332,6 +333,17 @@ button:disabled {
   padding: 0 12px;
 }
 
+.attendance-form select {
+  min-height: 46px;
+  padding: 0 12px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23125c4d' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
 .attendance-form textarea {
   min-height: 112px;
   resize: vertical;
@@ -339,7 +351,8 @@ button:disabled {
 }
 
 .attendance-form input:focus,
-.attendance-form textarea:focus {
+.attendance-form textarea:focus,
+.attendance-form select:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(18, 92, 77, 0.14);
 }
@@ -390,6 +403,26 @@ button:disabled {
 .attendance-card time {
   color: var(--muted);
   font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.attendance-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f4f7f2;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+.attendance-details span {
+  color: #354240;
+}
+
+.attendance-details strong {
+  color: var(--ink);
   font-weight: 700;
 }
 

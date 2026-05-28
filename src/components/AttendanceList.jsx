@@ -1,6 +1,7 @@
 import { ClipboardList, RotateCcw } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 import { formatDateTime } from '../utils/date';
+import { formatCPF } from '../utils/cpf';
 
 export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
   return (
@@ -39,6 +40,13 @@ export function AttendanceList({ attendances, loading, onSync, syncRunning }) {
                 <time dateTime={attendance.atendimentoEm}>{formatDateTime(attendance.atendimentoEm)}</time>
               </div>
               <StatusBadge status={attendance.syncStatus} />
+            </div>
+
+            <div className="attendance-details">
+              <span><strong>Idade:</strong> {attendance.idade} anos</span>
+              <span><strong>Tipo de problema:</strong> {attendance.tipoProblema}</span>
+              <span><strong>CPF:</strong> {formatCPF(attendance.cpf)}</span>
+              <span><strong>Contato:</strong> {attendance.contato}</span>
             </div>
 
             <p>{attendance.descricao}</p>
