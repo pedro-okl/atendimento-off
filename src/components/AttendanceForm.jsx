@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarClock, FileText, PenLine, Save, UserRound } from 'lucide-react';
+import { CalendarClock, FileText, PenLine, Save, UserRound, Hash, Phone } from 'lucide-react';
 import { toDateTimeLocalValue } from '../utils/date';
 import { formatCPF, isValidCPF } from '../utils/cpf';
 
@@ -41,7 +41,6 @@ export function AttendanceForm({ onAdd }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-<<<<<<< HEAD
     if (!form.nomeAtendido.trim() || !form.idade.trim() || !form.tipoProblema || !form.cpf.trim() || !form.contato.trim() || !form.descricao.trim()) {
       setError('Informe todos os campos obrigatórios.');
       return;
@@ -49,10 +48,6 @@ export function AttendanceForm({ onAdd }) {
 
     if (!isValidCPF(form.cpf)) {
       setError('CPF inválido.');
-=======
-    if (!form.nomeAtendido.trim() || !form.descricao.trim()) {
-      setError('Preencha o nome e conte, em poucas linhas, o que aconteceu no atendimento.');
->>>>>>> 19c30efa2f031b0294de0d51794e1418cf3cba71
       return;
     }
 
@@ -111,8 +106,10 @@ export function AttendanceForm({ onAdd }) {
         </label>
 
         <label>
-<<<<<<< HEAD
-          Idade
+          <span>
+            <Hash size={16} aria-hidden="true" />
+            Idade
+          </span>
           <input
             type="number"
             value={form.idade}
@@ -124,7 +121,10 @@ export function AttendanceForm({ onAdd }) {
         </label>
 
         <label>
-          Tipo de problema
+          <span>
+            <FileText size={16} aria-hidden="true" />
+            Tipo de problema
+          </span>
           <select
             value={form.tipoProblema}
             onChange={(event) => updateField('tipoProblema', event.target.value)}
@@ -140,7 +140,10 @@ export function AttendanceForm({ onAdd }) {
         </label>
 
         <label>
-          CPF
+          <span>
+            <Hash size={16} aria-hidden="true" />
+            CPF
+          </span>
           <input
             type="text"
             value={form.cpf}
@@ -152,7 +155,10 @@ export function AttendanceForm({ onAdd }) {
         </label>
 
         <label>
-          Contato (telefone ou email)
+          <span>
+            <Phone size={16} aria-hidden="true" />
+            Contato (telefone ou email)
+          </span>
           <input
             type="text"
             value={form.contato}
@@ -164,13 +170,10 @@ export function AttendanceForm({ onAdd }) {
         </label>
 
         <label>
-          Data e hora
-=======
           <span>
             <CalendarClock size={16} aria-hidden="true" />
             Data e hora
           </span>
->>>>>>> 19c30efa2f031b0294de0d51794e1418cf3cba71
           <input
             type="datetime-local"
             value={form.atendimentoEm}

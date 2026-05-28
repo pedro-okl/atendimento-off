@@ -578,18 +578,10 @@ button:disabled {
 }
 
 .attendance-form input:focus,
-<<<<<<< HEAD
 .attendance-form textarea:focus,
 .attendance-form select:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(18, 92, 77, 0.14);
-=======
-.attendance-form textarea:focus {
-  border-color: rgba(182, 93, 67, 0.74);
-  background: var(--paper-clean);
-  box-shadow: 0 0 0 5px rgba(182, 93, 67, 0.12);
-  transform: translateY(-1px);
->>>>>>> 19c30efa2f031b0294de0d51794e1418cf3cba71
 }
 
 .form-message {
